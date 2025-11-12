@@ -68,6 +68,7 @@ GO
 Create Function [AvailableSpots](@AnnouncementId int)
 Returns int as
 Begin
+	-- When with check constraint then if statement is redundant, as it would fail on foreign key constraint.
 	IF EXISTS(SELECT * FROM [dbo].[Announcement] where Announcement.Id = @AnnouncementId)
 	BEGIN	
 		DECLARE @MaxApplicants int;
@@ -76,9 +77,28 @@ Begin
 		SELECT @CurrentApplicants = COUNT(*) FROM [AnnouncementInfluencer] WHERE [AnnouncementInfluencer].[AnnouncementId] = @AnnouncementId;
 		Return @MaxApplicants - @CurrentApplicants;
 	END;
-	Return 0; -- Catches if AnnouncementId is invalid
+	Return -2147483647; -- Catches if AnnouncementId is invalid
 End;
 GO
 
-ALTER TABLE [AnnouncementInfluencer] ADD Constraint [CHK_FullAnnouncement] CHECK ([dbo].[AvailableSpots]([AnnouncementId]) > 0);
+-- Constraint only lets applications happen if it isn't already full.
+Alter Table [AnnouncementInfluencer] ADD Constraint [CHK_FullAnnouncement] CHECK ([dbo].[AvailableSpots]([AnnouncementInfluencer].[AnnouncementId]) >= 0);-- Since it behaves as if the the row has already been inserted: 0 would mean this row took the last spot, and should thus pass the check.s
 GO
+
+-- Returns 1 if the influencer has enough followers to apply. 0 Otherwise.
+Create Function [HasSufficientFollowers](@InfluencerId int, @AnnouncementId int)
+Returns bit
+As
+Begin
+	Declare @InfluencerFollowers int;
+	SELECT @InfluencerFollowers = [Influencer].[Followers] FROM [Influencer] WHERE [Influencer].[Id] = @InfluencerId;
+	Declare @FollowerRequirement int;
+	SELECT @FollowerRequirement = [Announcement].[RequiredFollowers] FROM [Announcement] WHERE [Announcement].[Id] = @AnnouncementId;
+	If (@FollowerRequirement <= @InfluencerFollowers)
+		Return 1;
+	Return 0; -- Returns 0 if the previous if statement fails.
+End;
+GO
+
+-- Constraint only lets influencers add themselves to announcements they have enough followers for.
+Alter Table [AnnouncementInfluencer] Add Constraint [CHK_SufficientFollowers] CHECK ([dbo].[HasSufficientFollowers]([AnnouncementInfluencer].[InfluencerId], [AnnouncementInfluencer].[AnnouncementId]) > 0)
