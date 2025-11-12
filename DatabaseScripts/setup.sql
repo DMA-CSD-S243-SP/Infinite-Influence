@@ -59,8 +59,8 @@ Create Table [AnnouncementInfluencer]
 	[ApplicationDate] datetime2 NOT NULL default SYSDATETIME(), -- If no creation time is given, then current time is assumed.
 	
 	Constraint [PK_AnnouncementInfluencer] primary key (AnnouncementId, InfluencerId),
-	Constraint [FK_AnnouncementInfluencer_Announcement] foreign key (AnnouncementId) references Announcement(Id),
-	Constraint [FK_AnnouncementInfluencer_Influencer] foreign key (InfluencerId) references Influencer(Id),
+	Constraint [FK_AnnouncementInfluencer_Announcement] foreign key (AnnouncementId) references Announcement(Id) on delete cascade, -- The application makes no sense if there is no announcement.
+	Constraint [FK_AnnouncementInfluencer_Influencer] foreign key (InfluencerId) references Influencer(Id) on delete cascade, -- The application makes no sense if there is no influencer.
 );
 GO
 
