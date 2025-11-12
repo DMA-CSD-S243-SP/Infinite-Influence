@@ -1,4 +1,10 @@
 Use [InfiniteInfluence]
+ALTER TABLE [AnnouncementInfluencer] DROP Constraint [CHK_SufficientFollowers]
+GO
+
+DROP FUNCTION [HasSufficientFollowers]
+GO
+
 ALTER TABLE [AnnouncementInfluencer] DROP Constraint [CHK_FullAnnouncement]
 GO
 
