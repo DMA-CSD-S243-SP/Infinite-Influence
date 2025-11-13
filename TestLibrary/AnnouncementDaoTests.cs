@@ -10,7 +10,7 @@ namespace TestLibrary
     public class Tests
     {
 
-        private String connectionString = "";
+        private String connectionString = "Data Source=localhost;Persist Security Info=True;User ID=sa;Password=@12tf56so;Encrypt=True;Trust Server Certificate=True";
         [SetUp]
         public void Setup()
         {
@@ -23,7 +23,7 @@ namespace TestLibrary
             //arrange
             IAnnouncementDao DAO = new AnnouncementDao(connectionString);
 
-            Announcement newAnnouncement = new Announcement("testTitle" , "testdescription", "testUrl", false, false, DateTime.Now, DateTime.Now, DateTime.Now, 10,100);
+            Announcement newAnnouncement = new Announcement("testTitle" , "testdescription", "testUrl", false, false, DateTime.Now, DateTime.Now, DateTime.Now, 10,100, 1);
 
             //act
 
