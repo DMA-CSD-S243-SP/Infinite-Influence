@@ -17,11 +17,12 @@ public class Announcement
     public DateTime EndDisplayDate { get; set; }
     public int MaximumApplicants { get; set; }
     public int RequiredFollowers { get; set; }
+    public int CompanyId { get; set; }
 
     private Influencer[] _applicants;
     #endregion
 
-       public Announcement(string title, string description, string bannerUrl, bool statusType, bool visibilityState, DateTime postCreationDate, DateTime postStartDate, DateTime postEndDate, int maximumApplicants, int requiredFollowerAmount)
+       public Announcement(string title, string description, string bannerUrl, bool statusType, bool visibilityState, DateTime postCreationDate, DateTime postStartDate, DateTime postEndDate, int maximumApplicants, int requiredFollowerAmount, int companyId)
     {
         Title = title;
         Description = description;
@@ -33,6 +34,8 @@ public class Announcement
         EndDisplayDate = postEndDate;
         MaximumApplicants = maximumApplicants;
         RequiredFollowers = requiredFollowerAmount;
+        CompanyId = companyId;
+
 
         _applicants = new Influencer[MaximumApplicants];
     }

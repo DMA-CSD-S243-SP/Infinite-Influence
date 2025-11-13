@@ -20,8 +20,8 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
     /// <exception cref="Exception"></exception>
     public int CreateAnnouncement(Announcement announcement)
     {
-        var query = "INSERT INTO Announcement (Title, Description, BannerUrl, StatusType, CreationDate, VisibilityState, StartDisplayDate, EndDisplayDate, MaximumApplicants, RequiredFollowers)" +
-            "OUTPUT INSERTED.Id VALUES (@Title, @Description, @BannerUrl, @StatusType, @CreationDate, @VisibilityState, @StartDisplayDate, @EndDisplayDate, @MaximumApplicants, @RequiredFollowers)";
+        var query = "INSERT INTO Announcement (Title, Description, BannerUrl, StatusType, CreationDate, VisibilityState, StartDisplayDate, EndDisplayDate, MaximumApplicants, RequiredFollowers, CompanyId)" +
+            "OUTPUT INSERTED.Id VALUES (@Title, @Description, @BannerUrl, @StatusType, @CreationDate, @VisibilityState, @StartDisplayDate, @EndDisplayDate, @MaximumApplicants, @RequiredFollowers, @CompanyId)";
         try
         {
             using var connection = createConnection();
@@ -36,7 +36,8 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
                 announcement.StartDisplayDate,
                 announcement.EndDisplayDate,
                 announcement.MaximumApplicants,
-                announcement.RequiredFollowers
+                announcement.RequiredFollowers,
+                announcement.CompanyId
             });
         }
         catch (Exception ex)
