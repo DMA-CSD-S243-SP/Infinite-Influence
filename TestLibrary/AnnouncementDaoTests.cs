@@ -10,7 +10,7 @@ namespace TestLibrary
     public class Tests
     {
 
-        private String connectionString = "Data Source=localhost;Persist Security Info=True;User ID=sa;Password=@12tf56so;Encrypt=True;Trust Server Certificate=True";
+        private String connectionString = DataAccessLibrary.DefaultValues.DefaultConnectionString;
         [SetUp]
         public void Setup()
         {
