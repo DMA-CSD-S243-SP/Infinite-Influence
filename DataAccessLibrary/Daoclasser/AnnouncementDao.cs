@@ -44,5 +44,33 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
         {
             throw new Exception("while trying to insert an announcement into the database an error occurred ", ex);
         }
-    }    
+    }
+
+    public IEnumerable<Announcement> GetAllAnnouncements()
+    {
+        var query = "SELECT * FROM Announcement";
+        try
+        {
+            using var connection = createConnection();
+            return connection.Query<Announcement>(query).ToList();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("while trying to get all announcements from the database an error occurred ", ex);
+        }
+    }
+
+    public Announcement GetAnnouncement(int id)
+    {
+        var query = "SELECT * FROM Announcement WHERE Id = @Id";
+        try
+        {
+            using var connection = createConnection();
+            return connection.QuerySingle<Announcement>(query, new { Id = id });
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("while trying to get an announcement from the database an error occurred ", ex);
+        }
+    }
 }

@@ -14,4 +14,10 @@ namespace DataAccessLibrary.Interfaces;
 public interface IAnnouncementDao
 {
     int CreateAnnouncement(Announcement Announcement);
+
+    Announcement GetAnnouncement(int id);
+
+    IEnumerable<Announcement> GetAllAnnouncements();
 }
+
+
