@@ -17,7 +17,7 @@ namespace TestLibrary
         }
 
         [Test]
-        public void CreateAnnouncementTest()
+        public void CreateAnnouncementAndReturnOneTest()
         {
                
             //arrange
@@ -32,6 +32,25 @@ namespace TestLibrary
             //assert
 
             Assert.That(newId > 0);
+
+            var fetchedAnnouncement = DAO.GetAnnouncement(newId);
+            Assert.That(fetchedAnnouncement, Is.Not.Null);
+            Assert.That(fetchedAnnouncement.Title, Is.EqualTo("testTitle"));
+
         }
+
+        public void GetAllAnnouncementsTest()
+        {
+            //arrange
+            IAnnouncementDao DAO = new AnnouncementDao(connectionString);
+
+            //act
+            var announcements = DAO.GetAllAnnouncements();
+
+            //assert
+            Assert.That(announcements, Is.Not.Null);
+            Assert.That(announcements.Count() > 4);
+        }
+
     }
 }
