@@ -1,41 +1,32 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Model;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebClient.Controllers
+namespace WebClientV2.Controllers
 {
-    public class AnnouncementController : Controller
+    public class HomeController1 : Controller
     {
-        private IAnnouncementDao _announcementDao;
-
-        public AnnouncementController()
-        {
-            _announcementDao = DataAccessLibrary.DefaultValues.DefaultAnnouncementDao;
-        }
-
-        // GET: AnnouncementController
+        // GET: HomeController1
         public ActionResult Index()
         {
-            return View(new List<Announcement>());
+            return View();
         }
 
-        // GET: AnnouncementController/Details/5
+        // GET: HomeController1/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: AnnouncementController/Create
+        // GET: HomeController1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AnnouncementController/Create
+        // POST: HomeController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Announcement announcement)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -47,16 +38,16 @@ namespace WebClient.Controllers
             }
         }
 
-        // GET: AnnouncementController/Edit/5
+        // GET: HomeController1/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: AnnouncementController/Edit/5
+        // POST: HomeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Announcement announcement)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -68,16 +59,16 @@ namespace WebClient.Controllers
             }
         }
 
-        // GET: AnnouncementController/Delete/5
+        // GET: HomeController1/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: AnnouncementController/Delete/5
+        // POST: HomeController1/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Announcement announcement)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
