@@ -1,0 +1,80 @@
+﻿@model DataAccessLibrary.Model.Announcement
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Announcement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerUrl" class="control-label"></label>
+                <input asp-for="BannerUrl" class="form-control" />
+                <span asp-validation-for="BannerUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="StatusType" /> @Html.DisplayNameFor(model => model.StatusType)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="VisibilityState" /> @Html.DisplayNameFor(model => model.VisibilityState)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDisplayDate" class="control-label"></label>
+                <input asp-for="StartDisplayDate" class="form-control" />
+                <span asp-validation-for="StartDisplayDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDisplayDate" class="control-label"></label>
+                <input asp-for="EndDisplayDate" class="form-control" />
+                <span asp-validation-for="EndDisplayDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaximumApplicants" class="control-label"></label>
+                <input asp-for="MaximumApplicants" class="form-control" />
+                <span asp-validation-for="MaximumApplicants" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredFollowers" class="control-label"></label>
+                <input asp-for="RequiredFollowers" class="form-control" />
+                <span asp-validation-for="RequiredFollowers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyId" class="control-label"></label>
+                <input asp-for="CompanyId" class="form-control" />
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
