@@ -7,6 +7,7 @@ namespace TestLibrary
     /// <summary>
     /// test class for AnnouncementDao it will test the connection to the database and methods to manipulate data in the Announcement table.
     /// </summary>
+    /// 17-11-2025 10:40 - Anders
     public class Tests
     {
 

@@ -8,7 +8,7 @@ namespace DatabaseAPI.Controllers;
 /// <summary>
 /// this class manages endpoints for announcements. 
 /// </summary>
-/// 13-11-2025 10:25 - Anders
+/// 17-11-2025 10:30 - Anders
 [ApiController]
 [Route("[controller]")]
 public class AnnouncementController : ControllerBase

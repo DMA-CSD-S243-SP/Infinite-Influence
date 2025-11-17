@@ -7,7 +7,7 @@ namespace DataAccessLibrary.Daoclasser;
 /// <summary>
 /// AnnouncementDAO class is responsible for handling database operations related to Announcements.
 /// </summary>
-/// 12-11-2025 13:45 - Anders
+/// 17-11-2025 10:30 - Anders
 public class AnnouncementDao : BaseDao, IAnnouncementDao
 {
     public AnnouncementDao(string connectionString) : base(connectionString){}

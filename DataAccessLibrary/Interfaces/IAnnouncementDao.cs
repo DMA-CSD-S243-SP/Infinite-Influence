@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Interfaces;
 /// <summary>
 /// 
 /// </summary>
-/// 12-11-2025 11:45 - Anders
+/// 17-11-2025 10:05 - Anders
 public interface IAnnouncementDao
 {
     int CreateAnnouncement(Announcement Announcement);
