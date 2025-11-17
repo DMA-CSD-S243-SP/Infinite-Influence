@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary.Model;
+﻿using DataAccessLibrary.Interfaces;
+using DataAccessLibrary.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,13 @@ namespace WebClientV2.Controllers
 {
     public class AnnouncementController : Controller
     {
+        private IAnnouncementDao _announcementDao = DataAccessLibrary.DefaultValues.DefaultAnnouncementDao;
+
+        public AnnouncementController()
+        {
+            _announcementDao = DataAccessLibrary.DefaultValues.DefaultAnnouncementDao;
+        }
+
         // GET: AnnouncementController
         public ActionResult Index()
         {
@@ -27,10 +35,11 @@ namespace WebClientV2.Controllers
         // POST: AnnouncementController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Announcement announcement)
         {
             try
             {
+                _announcementDao.CreateAnnouncement(announcement);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -48,7 +57,7 @@ namespace WebClientV2.Controllers
         // POST: AnnouncementController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Announcement announcement)
         {
             try
             {
@@ -69,7 +78,7 @@ namespace WebClientV2.Controllers
         // POST: AnnouncementController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Announcement announcement)
         {
             try
             {

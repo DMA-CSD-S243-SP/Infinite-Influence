@@ -22,6 +22,9 @@ public class Announcement
     private Influencer[] _applicants;
     #endregion
 
+        public Announcement() { }
+
+
        public Announcement(string title, string description, string bannerUrl, bool statusType, bool visibilityState, DateTime postCreationDate, DateTime postStartDate, DateTime postEndDate, int maximumApplicants, int requiredFollowerAmount, int companyId)
     {
         Title = title;
