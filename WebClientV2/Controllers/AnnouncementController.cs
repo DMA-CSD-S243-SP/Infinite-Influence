@@ -17,13 +17,15 @@ namespace WebClientV2.Controllers
         // GET: AnnouncementController
         public ActionResult Index()
         {
-            return View(new List<Announcement>());
+            var allAnnouncements = _announcementDao.GetAllAnnouncements() ?? new List<Announcement>();
+
+            return View(allAnnouncements);
         }
 
         // GET: AnnouncementController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_announcementDao.GetAnnouncement(id));
         }
 
         // GET: AnnouncementController/Create

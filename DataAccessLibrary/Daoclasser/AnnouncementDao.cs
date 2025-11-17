@@ -60,13 +60,13 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
         }
     }
 
-    public Announcement GetAnnouncement(int id)
+    public Announcement? GetAnnouncement(int id)
     {
         var query = "SELECT * FROM Announcement WHERE Id = @Id";
         try
         {
             using var connection = createConnection();
-            return connection.QuerySingle<Announcement>(query, new { Id = id });
+            return connection.QuerySingleOrDefault<Announcement>(query, new { Id = id });
         }
         catch (Exception ex)
         {

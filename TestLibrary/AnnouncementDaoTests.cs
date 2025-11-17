@@ -40,6 +40,7 @@ namespace TestLibrary
 
         }
 
+        [Test]
         public void GetAllAnnouncementsTest()
         {
             //arrange

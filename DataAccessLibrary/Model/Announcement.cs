@@ -7,6 +7,8 @@
 public class Announcement
 {
     #region Properties
+
+    public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public string BannerUrl { get; set; }
@@ -41,5 +43,24 @@ public class Announcement
 
 
         _applicants = new Influencer[MaximumApplicants];
+    }
+
+    public Announcement(int id, string title, string description, string bannerUrl, bool statusType, bool visibilityState, DateTime postCreationDate, DateTime postStartDate, DateTime postEndDate, int maximumApplicants, int requiredFollowerAmount, int companyId)
+    {
+        Id = id;
+        Title = title;
+        Description = description;
+        BannerUrl = bannerUrl;
+        StatusType = statusType;
+        VisibilityState = visibilityState;
+        CreationDate = postCreationDate;
+        StartDisplayDate = postStartDate;
+        EndDisplayDate = postEndDate;
+        MaximumApplicants = maximumApplicants;
+        RequiredFollowers = requiredFollowerAmount;
+        CompanyId = companyId;
+
+        _applicants = new Influencer[MaximumApplicants];
+
     }
 }
