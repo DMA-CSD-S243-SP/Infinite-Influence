@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DataAccessLibrary.Model.Announcement>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisibilityState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDisplayDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDisplayDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaximumApplicants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiredFollowers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisibilityState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDisplayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDisplayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaximumApplicants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredFollowers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
