@@ -46,6 +46,11 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
         }
     }
 
+    /// <summary>
+    /// this method returns all of the announcements for the database
+    /// </summary>
+    /// <returns>an Ienumerable with all Announcements</returns>
+    /// <exception cref="Exception"></exception>
     public IEnumerable<Announcement> GetAllAnnouncements()
     {
         var query = "SELECT * FROM Announcement";
@@ -60,6 +65,12 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
         }
     }
 
+    /// <summary>
+    /// returns one specific announcement based on the given id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>returns a announcement based on the given id</returns>
+    /// <exception cref="Exception"></exception>
     public Announcement? GetAnnouncement(int id)
     {
         var query = "SELECT * FROM Announcement WHERE Id = @Id";
