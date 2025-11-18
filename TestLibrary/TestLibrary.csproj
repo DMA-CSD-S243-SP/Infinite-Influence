@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\WebClientV2\WebClientV2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
