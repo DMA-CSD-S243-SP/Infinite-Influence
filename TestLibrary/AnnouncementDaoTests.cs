@@ -1,6 +1,6 @@
 using DataAccessLibrary.Daoclasser;
 using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Model;
+using ObjectModel;
 
 namespace TestLibrary
 {

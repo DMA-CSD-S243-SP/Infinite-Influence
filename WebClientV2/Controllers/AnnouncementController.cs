@@ -19,7 +19,7 @@ namespace WebClientV2.Controllers
         public ActionResult Index()
         {
             IEnumerable<Announcement> result;
-            HttpResponseMessage response = new HttpClient().GetAsync("https://localhost:7153/api/Announcement").Result;
+            HttpResponseMessage response = new HttpClient().GetAsync("https://localhost:7051/api/Announcement").Result;
             if (((int)response.StatusCode) == 200)
             {
                 result = JsonConvert.DeserializeObject<IEnumerable<Announcement>>(response.Content.ReadAsStringAsync().Result);
@@ -60,16 +60,23 @@ namespace WebClientV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Announcement announcement)
         {
-            StringContent content = new StringContent(JsonConvert.SerializeObject(announcement), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = new APIClient().PostAsync("Announcement", content).Result;
+            var jsonData = JsonConvert.SerializeObject(announcement);
+
+            var content = new StringContent(
+                jsonData,
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            HttpResponseMessage response =
+                new APIClient().PostAsync("Announcement", content).Result;
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View();
-            }
+
+            return View();
         }
 
         // GET: AnnouncementController/Edit/5

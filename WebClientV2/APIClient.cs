@@ -5,7 +5,7 @@ namespace WebClientV2
     public class APIClient : HttpClient
     {
         //the url for the api server.
-        private static readonly string apiUrl = "https://localhost:7153/api/"; // TODO If moved to remote host, replace url
+        private static readonly string apiUrl = "https://localhost:7051/api/"; // TODO If moved to remote host, replace url
 
         public APIClient()
         {

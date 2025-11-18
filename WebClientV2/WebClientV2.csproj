@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApiClient\ApiClient.csproj" />
     <ProjectReference Include="..\APIV1\APIV1.csproj" />
-    <ProjectReference Include="..\Model\ObjectModel.csproj" />
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
     <ProjectReference Include="..\ObjectModel\ObjectModel.csproj" />
   </ItemGroup>
 

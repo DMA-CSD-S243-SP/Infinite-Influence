@@ -1,4 +1,4 @@
-﻿using DataAccessLibrary.Model;
+﻿using ObjectModel;
 using System.ComponentModel.Design;
 
 namespace TestLibrary;

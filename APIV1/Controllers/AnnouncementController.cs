@@ -73,32 +73,18 @@ namespace APIV1.Controllers
 
         // POST api/<Announcement>
         [HttpPost]
-        public IActionResult Post(string json)
+        public IActionResult Post([FromBody] Announcement announcement)
         {
-            ContentResult result;
-
             try
             {
-                Announcement? announcement = JsonConvert.DeserializeObject<Announcement>(json);
                 DefaultValues.DefaultAnnouncementDao.CreateAnnouncement(announcement);
 
-                result = new ContentResult()
-                {
-                    Content = "Announcement was created.",
-                    StatusCode = 201,
-                };
+                return StatusCode(201, new { message = "Announcement was created." });
             }
             catch (Exception ex)
             {
-                result = new ContentResult()
-                {
-                    Content = ex.Message, // HACK: Passes exception to user. Very useful for developers, very useful for hackers too...
-                    StatusCode = 404,
-                };
+                return StatusCode(400, new { error = ex.Message });
             }
-
-
-            return result;
         }
 
         // PUT api/<Announcement>/5
