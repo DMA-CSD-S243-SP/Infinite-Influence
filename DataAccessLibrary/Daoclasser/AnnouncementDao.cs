@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Model;
 using Dapper;
+using ObjectModel;
 
 namespace DataAccessLibrary.Daoclasser;
 
@@ -18,7 +18,7 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
     /// <param name="announcement"> the announcement we want to presist into the database</param>
     /// <returns>the Id of the newly created announcement</returns>
     /// <exception cref="Exception"></exception>
-    public int CreateAnnouncement(Announcement announcement)
+    public int CreateAnnouncement(ObjectModel.Announcement announcement)
     {
         var query = "INSERT INTO Announcement (Title, Description, BannerUrl, StatusType, CreationDate, VisibilityState, StartDisplayDate, EndDisplayDate, MaximumApplicants, RequiredFollowers, CompanyId)" +
             "OUTPUT INSERTED.Id VALUES (@Title, @Description, @BannerUrl, @StatusType, @CreationDate, @VisibilityState, @StartDisplayDate, @EndDisplayDate, @MaximumApplicants, @RequiredFollowers, @CompanyId)";
@@ -51,13 +51,13 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
     /// </summary>
     /// <returns>an Ienumerable with all Announcements</returns>
     /// <exception cref="Exception"></exception>
-    public IEnumerable<Announcement> GetAllAnnouncements()
+    public IEnumerable<ObjectModel.Announcement> GetAllAnnouncements()
     {
         var query = "SELECT * FROM Announcement";
         try
         {
             using var connection = createConnection();
-            return connection.Query<Announcement>(query).ToList();
+            return connection.Query<ObjectModel.Announcement>(query).ToList();
         }
         catch (Exception ex)
         {
@@ -71,13 +71,13 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
     /// <param name="id"></param>
     /// <returns>returns a announcement based on the given id</returns>
     /// <exception cref="Exception"></exception>
-    public Announcement? GetAnnouncement(int id)
+    public ObjectModel.Announcement? GetAnnouncement(int id)
     {
         var query = "SELECT * FROM Announcement WHERE Id = @Id";
         try
         {
             using var connection = createConnection();
-            return connection.QuerySingleOrDefault<Announcement>(query, new { Id = id });
+            return connection.QuerySingleOrDefault<ObjectModel.Announcement>(query, new { Id = id });
         }
         catch (Exception ex)
         {

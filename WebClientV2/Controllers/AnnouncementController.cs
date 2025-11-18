@@ -1,31 +1,52 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Model;
+﻿using APIV1;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ObjectModel;
+using System.Net;
+using System.Text;
 
 namespace WebClientV2.Controllers
 {
     public class AnnouncementController : Controller
     {
-        private IAnnouncementDao _announcementDao = DataAccessLibrary.DefaultValues.DefaultAnnouncementDao;
-
         public AnnouncementController()
         {
-            _announcementDao = DataAccessLibrary.DefaultValues.DefaultAnnouncementDao;
+
         }
 
         // GET: AnnouncementController
         public ActionResult Index()
         {
-            var allAnnouncements = _announcementDao.GetAllAnnouncements() ?? new List<Announcement>();
+            IEnumerable<Announcement> result;
+            HttpResponseMessage response = new HttpClient().GetAsync("https://localhost:7153/api/Announcement").Result;
+            if (((int)response.StatusCode) == 200)
+            {
+                result = JsonConvert.DeserializeObject<IEnumerable<Announcement>>(response.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                result = new List<Announcement>();
+            }
 
-            return View(allAnnouncements);
+            return View(result);
         }
 
         // GET: AnnouncementController/Details/5
         public ActionResult Details(int id)
         {
-            return View(_announcementDao.GetAnnouncement(id));
+            Announcement? result;
+            HttpResponseMessage response = new APIClient().GetAsync($"Announcement/{id}").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<Announcement>(response.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                result = null;
+            }
+
+            return View(result);
         }
 
         // GET: AnnouncementController/Create
@@ -39,12 +60,13 @@ namespace WebClientV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Announcement announcement)
         {
-            try
+            StringContent content = new StringContent(JsonConvert.SerializeObject(announcement), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = new APIClient().PostAsync("Announcement", content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                _announcementDao.CreateAnnouncement(announcement);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
                 return View();
             }

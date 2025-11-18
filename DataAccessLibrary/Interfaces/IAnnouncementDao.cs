@@ -1,9 +1,9 @@
-﻿using DataAccessLibrary.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObjectModel;
 
 namespace DataAccessLibrary.Interfaces;
 
@@ -13,11 +13,11 @@ namespace DataAccessLibrary.Interfaces;
 /// 17-11-2025 10:05 - Anders
 public interface IAnnouncementDao
 {
-    int CreateAnnouncement(Announcement Announcement);
+    int CreateAnnouncement(ObjectModel.Announcement Announcement);
 
-    Announcement GetAnnouncement(int id);
+    ObjectModel.Announcement GetAnnouncement(int id);
 
-    IEnumerable<Announcement> GetAllAnnouncements();
+    IEnumerable<ObjectModel.Announcement> GetAllAnnouncements();
 }
 
 

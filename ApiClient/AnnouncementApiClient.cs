@@ -1,5 +1,4 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Model;
+﻿using ObjectModel;
 using RestSharp;
 
 namespace ApiClient;
@@ -8,7 +7,7 @@ namespace ApiClient;
 /// this class manages api calls for announcements. 
 /// </summary>
 /// 13-11-2025 11:00 - Anders
-public class AnnouncementApiClient : IAnnouncementDao
+public class AnnouncementApiClient
 {
     //the url for the api server.
     private readonly string apiUrl;
