@@ -13,11 +13,11 @@ namespace DataAccessLibrary.Interfaces;
 /// 17-11-2025 10:05 - Anders
 public interface IAnnouncementDao
 {
-    int CreateAnnouncement(ObjectModel.Announcement Announcement);
+    int CreateAnnouncement(Announcement Announcement);
 
-    ObjectModel.Announcement GetAnnouncement(int id);
+    Announcement GetAnnouncement(int id);
 
-    IEnumerable<ObjectModel.Announcement> GetAllAnnouncements();
+    IEnumerable<Announcement> GetAllAnnouncements();
 }
 
 
