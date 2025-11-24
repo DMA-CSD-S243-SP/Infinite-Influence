@@ -17,7 +17,7 @@ public class InfluencerController : ControllerBase
         {
             DefaultValues.DefaultInfluencerDao.createInfluencer(influencer);
 
-            return StatusCode(201, new { message = "Announcement was created." });
+            return StatusCode(201, new { message = "Influencer was created." });
         }
         catch (Exception ex)
         {

@@ -13,6 +13,12 @@ namespace WebClientV2.Controllers
 
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
         // POST: InfluencerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

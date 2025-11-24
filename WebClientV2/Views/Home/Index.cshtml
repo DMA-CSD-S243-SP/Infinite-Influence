@@ -5,7 +5,43 @@
 <div class="text-center">
     <h1 class="display-4">Infinite Influence</h1>
     <p>Influencer & brand collaboration - Infinitely easier!</p>
-        <a class="nav-link text-light" asp-area="" asp-controller="Announcement" asp-action="Index">Announcements</a>
-
-        <a class="nav-link text-light" asp-area="" asp-controller="Influencer" asp-action="Index">Influencer</a>
 </div>
+
+<div class="text-center">
+
+    <div class="nav-box-container">
+        <div>
+            <p>browse announcements</p>
+            <a class="nav-box" asp-area="" asp-controller="Announcement" asp-action="Index">
+                Announcements
+            </a>
+        </div>
+
+        <div>
+            <p>create user profile</p>
+            <a class="nav-box" asp-area="" asp-controller="Influencer" asp-action="create">
+                Influencer
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .nav-box-container {
+        display: flex;
+        justify-content: center;
+        gap: 40px; 
+        margin-top: 20px;
+    }
+    .nav-box {
+        display: inline-block;
+        padding: 15px 25px;
+        border: 2px solid rebeccapurple;
+        border-radius: 10px;
+        background-color: rebeccapurple;
+        text-decoration: none;
+        font-weight: 600;
+        color: white;
+        transition: 0.2s ease;
+    }
+</style>
