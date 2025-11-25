@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Join";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Join Announcement</h1>
+
+<form asp-controller="Influencer" asp-action="Join" method="post" class="form">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group mb-3">
+        <label for="InfluencerId" class="form-label">InfluencerId</label>
+        <input id="InfluencerId" name="InfluencerId" class="form-control" type="text" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="AnnouncementId" class="form-label">AnnouncementId</label>
+        
+        <input id="AnnouncementId" name="AnnouncementId" class="form-control" type="text" value="@ViewBag.AnnouncementId" readonly />
+
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Join" class="btn btn-primary" /> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>
+

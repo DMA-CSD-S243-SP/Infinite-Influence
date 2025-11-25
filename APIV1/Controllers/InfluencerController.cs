@@ -24,4 +24,23 @@ public class InfluencerController : ControllerBase
             return StatusCode(400, new { error = ex.Message });
         }
     }
+
+    // POST api/<Announcement>/Join/{announcementId}
+    [HttpPost]
+    [Route("Join/{announcementId}")]
+    public IActionResult Join([FromBody] int influencerId, int announcementId)
+    { 
+
+
+        try
+        {
+            DefaultValues.DefaultInfluencerDao.JoinAnnouncement(influencerId, announcementId);
+
+            return StatusCode(201, new { message = "Influencer joined announcement." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(400, new { error = ex.Message });
+        }
+    }
 }

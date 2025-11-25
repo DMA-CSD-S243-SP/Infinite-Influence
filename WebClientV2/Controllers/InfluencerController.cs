@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using ObjectModel;
 using System.Text;
+using System;
+using Microsoft.OpenApi.MicrosoftExtensions;
 
 namespace WebClientV2.Controllers
 {
@@ -48,11 +50,35 @@ namespace WebClientV2.Controllers
         {
             //TODO: Fetch influencers from API
             List<Influencer> result = new List<Influencer>();
-        
+
 
             return View(result);
-
-           
         }
+
+        public IActionResult Join(int id)
+        {
+            ViewBag.AnnouncementId = id;
+            return View();
+        }
+
+        // POST: InfluencerController/Join
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Join(String influencerId, String announcementId)
+        {
+            var content = new StringContent(influencerId, Encoding.UTF8, "application/json");
+
+
+            HttpResponseMessage response =
+                    new APIClient().PostAsync($"influencer/join/{announcementId}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+            return View();
+        }
+
     }
 }

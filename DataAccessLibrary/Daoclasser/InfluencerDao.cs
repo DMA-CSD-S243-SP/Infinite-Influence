@@ -37,4 +37,23 @@ public class InfluencerDao : BaseDao, IInfluencerDao
             throw new Exception("while trying to insert an influencer into the database an error occurred ", ex);
         }
     }
+
+    public bool JoinAnnouncement(int influencerId, int announcementId)
+    {
+        var query = "INSERT INTO AnnouncementInfluencer (InfluencerId, AnnouncementId) VALUES (@InfluencerId, @AnnouncementId)";
+        try
+        {
+            using var connection = createConnection();
+            var rowsAffected = connection.Execute(query, new
+            {
+                InfluencerId = influencerId,
+                AnnouncementId = announcementId
+            });
+            return rowsAffected > 0;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("while trying to join an announcement an error occurred ", ex);
+        }
+    }
 }

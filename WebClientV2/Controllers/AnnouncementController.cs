@@ -120,5 +120,27 @@ namespace WebClientV2.Controllers
                 return View();
             }
         }
+
+        // GET: announcementController/Join/5
+        public ActionResult Join(int id)
+        {
+            ViewBag.AnnouncementId = id;
+            return View();
+        }
+
+        // POST: announcementController/Join/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Join(int id, Announcement announcement)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

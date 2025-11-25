@@ -12,4 +12,6 @@ public interface IInfluencerDao
 
     int createInfluencer(Influencer influencer);
 
+    bool JoinAnnouncement(int influencerId, int announcementId);
+
 }
