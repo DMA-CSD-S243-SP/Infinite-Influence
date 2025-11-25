@@ -34,4 +34,17 @@ public class InfluencerDaoTests
         Assert.That(newId > 0);
 
     }
+
+    [Test]
+    public void JoinAnnouncement()
+    {
+        //arrange
+        IInfluencerDao DAO = new InfluencerDao(connectionString);
+        int influencerId = 2; //you have to manually change this id to an existing influencer in the test database that hasnt joined the announcement yet
+        int announcementId = 3; //you have to manually change this id to an existing announcement in the test database that the influencer hasnt joined yet
+        //act
+        bool result = DAO.JoinAnnouncement(influencerId, announcementId);
+        //assert
+        Assert.That(result == true);
+    }
 }
