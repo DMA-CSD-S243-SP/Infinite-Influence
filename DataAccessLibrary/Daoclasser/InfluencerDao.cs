@@ -53,7 +53,6 @@ public class InfluencerDao : BaseDao, IInfluencerDao
             "DECLARE @ApplyingInfluencerId int = @INID; " +
             "DECLARE @MaxApplicants int; " +
             "SELECT @MaxApplicants = Announcement.MaximumApplicants FROM Announcement WHERE Announcement.Id = @TargetAnnouncementId; " +
-            "DECLARE @AcceptedApplicants Table(InfluencerId int); " +
             "IF (NOT EXISTS (" +
             "SELECT InfluencerId FROM (" +
             "SELECT TOP (@MaxApplicants) [InfluencerId] FROM [AnnouncementInfluencer] WHERE [AnnouncementId] = @TargetAnnouncementId ORDER BY AnnouncementInfluencer.ApplicationDate) AS InfluencerId WHERE InfluencerId = @ApplyingInfluencerId)) " +
