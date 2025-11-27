@@ -19,7 +19,7 @@ namespace WebClientV2.Controllers
         public ActionResult Index()
         {
             IEnumerable<Announcement> result;
-            HttpResponseMessage response = new APIClient().GetAsync("Announcement").Result;
+            HttpResponseMessage response = new APIClient().GetAsync($"Announcement").Result;
             if (((int)response.StatusCode) == 200)
             {
                 result = JsonConvert.DeserializeObject<IEnumerable<Announcement>>(response.Content.ReadAsStringAsync().Result);
