@@ -42,13 +42,14 @@ public class InfluencerDao : BaseDao, IInfluencerDao
 
     public bool JoinAnnouncement(int influencerId, int announcementId)
     {
-        string query = "INSERT INTO AnnouncementInfluencer (InfluencerId, AnnouncementId) VALUES (@InfluencerId, @AnnouncementId)";
+        string query = "INSERT INTO AnnouncementInfluencer (InfluencerId, AnnouncementId) VALUES (@InfluencerId, @AnnouncementId);";
 
         /* This SQL statement sorts the AnnouncementInfluencer table by the ApplicationDate.
          * If the given influencer id not found within the first n rows of applications to the given announcement,
          * where n is the MaximumApplicants value of the announcement,
          * then this statement will throw an exception. Otherwise does nothing.*/
-        string fullAnnouncementCheck = "DECLARE @TargetAnnouncementId int = @ANID; " +
+        string fullAnnouncementCheck = 
+            "DECLARE @TargetAnnouncementId int = @ANID; " +
             "DECLARE @ApplyingInfluencerId int = @INID; " +
             "DECLARE @MaxApplicants int; " +
             "SELECT @MaxApplicants = Announcement.MaximumApplicants FROM Announcement WHERE Announcement.Id = @TargetAnnouncementId; " +
