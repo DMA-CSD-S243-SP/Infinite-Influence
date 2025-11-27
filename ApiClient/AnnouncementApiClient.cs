@@ -13,7 +13,7 @@ namespace ApiClient;
 public class AnnouncementApiClient
 {
     //the url for the api server.
-    private readonly string _apiUrl = "https://localhost:7051/api/";
+    private readonly string _apiUrl = "https://localhost:7099/api/";
 
     //the restclient to call the server.
     private readonly HttpClient _httpClient;
