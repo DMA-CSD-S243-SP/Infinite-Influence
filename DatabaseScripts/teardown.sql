@@ -1,14 +1,14 @@
 Use [InfiniteInfluence]
-ALTER TABLE [AnnouncementInfluencer] DROP Constraint [CHK_SufficientFollowers]
+ALTER TABLE [AnnouncementInfluencer] DROP Constraint IF EXISTS [CHK_SufficientFollowers]
 GO
 
-DROP FUNCTION [HasSufficientFollowers]
+DROP FUNCTION IF EXISTS [HasSufficientFollowers] 
 GO
 
-ALTER TABLE [AnnouncementInfluencer] DROP Constraint [CHK_FullAnnouncement]
+ALTER TABLE [AnnouncementInfluencer] DROP Constraint IF EXISTS [CHK_FullAnnouncement]
 GO
 
-DROP FUNCTION [dbo].[AvailableSpots]
+DROP FUNCTION IF EXISTS [dbo].[AvailableSpots]
 GO
 
 DROP TABLE [AnnouncementInfluencer]
