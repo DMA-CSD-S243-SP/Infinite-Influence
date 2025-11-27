@@ -64,6 +64,7 @@ Create Table [AnnouncementInfluencer]
 );
 GO
 
+/*
 -- This function checks how many available spots a given Announcement has
 Create Function [AvailableSpots](@AnnouncementId int)
 Returns int as
@@ -102,3 +103,4 @@ GO
 
 -- Constraint only lets influencers add themselves to announcements they have enough followers for.
 Alter Table [AnnouncementInfluencer] Add Constraint [CHK_SufficientFollowers] CHECK ([dbo].[HasSufficientFollowers]([AnnouncementInfluencer].[InfluencerId], [AnnouncementInfluencer].[AnnouncementId]) > 0)
+*/

@@ -64,6 +64,7 @@ VALUES
 ('https://banners.com/medicare_campaign.jpg', 'Health Campaign', 'Medicare Group launches a nationwide health awareness campaign.', 1, 1, 30, 0, 1),
 ('https://banners.com/travelmate_tour.jpg', 'Exclusive Tour', 'Travel Mate Co. offers an exclusive guided tour to Bali.', 1, 1, 100, 2000, 2),
 ('https://banners.com/gameverse_beta.jpg', 'Beta Release', 'GameVerse Studios announces beta testing for its new game.', 1, 1, 200, 5000, 3);
+GO
 
 -- Sample Applications
 INSERT INTO [AnnouncementInfluencer] 
