@@ -17,9 +17,8 @@ public class AnnouncementApiClient
 
     //the restclient to call the server.
     private readonly HttpClient _httpClient;
-    public AnnouncementApiClient(string apiUrl)
+    public AnnouncementApiClient()
     {
-        _apiUrl = apiUrl;
         _httpClient = new HttpClient
         {
             BaseAddress = new Uri(_apiUrl)
@@ -35,7 +34,7 @@ public class AnnouncementApiClient
     {
         try
         {
-            var response = _httpClient.GetAsync("https://localhost:7051/api/Announcement").Result;
+            var response = _httpClient.GetAsync("Announcement").Result;
 
             var content = response.Content.ReadAsStringAsync().Result;
 
