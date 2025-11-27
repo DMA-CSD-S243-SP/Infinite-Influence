@@ -7,7 +7,7 @@ namespace WinformsApp
 {
     public partial class Form1 : Form
     {
-        IAnnouncementDao _apiClient = new AnnouncementApiClient("https://localhost:7051/");
+        AnnouncementApiClient _apiClient = new AnnouncementApiClient("https://localhost:7051/");
         public Form1()
         {
             InitializeComponent();

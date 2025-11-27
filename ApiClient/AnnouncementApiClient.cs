@@ -1,5 +1,4 @@
-﻿using DataAccessLibrary.Interfaces;
-using ObjectModel;
+﻿using ObjectModel;
 using RestSharp;
 using System.Net.Http;
 using System.Text.Json;
@@ -11,7 +10,7 @@ namespace ApiClient;
 /// this class manages api calls for announcements. 
 /// </summary>
 /// 13-11-2025 11:00 - Anders
-public class AnnouncementApiClient : IAnnouncementDao
+public class AnnouncementApiClient
 {
     //the url for the api server.
     private readonly string _apiUrl = "https://localhost:7051/api/";
@@ -38,9 +37,7 @@ public class AnnouncementApiClient : IAnnouncementDao
         {
             var response = _httpClient.GetAsync("https://localhost:7051/api/Announcement").Result;
 
-            Console.WriteLine($"Status: {response.StatusCode}");
             var content = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine($"Content: {content}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -48,12 +45,11 @@ public class AnnouncementApiClient : IAnnouncementDao
                 return announcements;
             }
 
-            throw new Exception($"Server reply: {response.StatusCode} - {content}");
+            throw new Exception($"Server reply: {response.StatusCode}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-            throw;
+            throw new Exception("Error fetching announcements", ex);
         }
     }
 
