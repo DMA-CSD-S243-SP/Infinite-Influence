@@ -3,9 +3,11 @@ using DataAccessLibrary.Interfaces;
 using ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace DataAccessLibrary.Daoclasser;
 
@@ -40,16 +42,48 @@ public class InfluencerDao : BaseDao, IInfluencerDao
 
     public bool JoinAnnouncement(int influencerId, int announcementId)
     {
-        var query = "INSERT INTO AnnouncementInfluencer (InfluencerId, AnnouncementId) VALUES (@InfluencerId, @AnnouncementId)";
+        string query = "INSERT INTO AnnouncementInfluencer (InfluencerId, AnnouncementId) VALUES (@InfluencerId, @AnnouncementId)";
+
+        /* This SQL statement sorts the AnnouncementInfluencer table by the ApplicationDate.
+         * If the given influencer id not found within the first n rows of applications to the given announcement,
+         * where n is the MaximumApplicants value of the announcement,
+         * then this statement will throw an exception. Otherwise does nothing.*/
+        string fullAnnouncementCheck = "DECLARE @TargetAnnouncementId int = @ANID; " +
+            "DECLARE @ApplyingInfluencerId int = @INID; " +
+            "DECLARE @MaxApplicants int; " +
+            "SELECT @MaxApplicants = Announcement.MaximumApplicants FROM Announcement WHERE Announcement.Id = @TargetAnnouncementId; " +
+            "DECLARE @AcceptedApplicants Table(InfluencerId int); " +
+            "IF (NOT EXISTS (" +
+            "SELECT InfluencerId FROM (" +
+            "SELECT TOP (@MaxApplicants) [InfluencerId] FROM [AnnouncementInfluencer] WHERE [AnnouncementId] = @TargetAnnouncementId ORDER BY AnnouncementInfluencer.ApplicationDate) AS InfluencerId WHERE InfluencerId = @ApplyingInfluencerId)) " +
+            "BEGINDECLARE @ErrorMessage nvarchar(2048) = 'Influencer with Id %s was not accepted into Announcement with Id %s'; " +
+                "SET @ErrorMessage = FORMATMESSAGE(@ErrorMessage, CAST(@ApplyingInfluencerId AS nvarchar), CAST(@TargetAnnouncementId AS nvarchar)); " +
+                "THROW 69420, @ErrorMessage, 1; " +
+            "END";
+        query += " " + fullAnnouncementCheck;
         try
         {
             using var connection = createConnection();
+
+            // By starting a transaction all changes will be undone if a commit is not called before connection is closed.
+            // We assume that most ongoing join attempts succeed, thus we allow reading of uncommitted data.
+            using IDbTransaction transaction = connection.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
             var rowsAffected = connection.Execute(query, new
             {
                 InfluencerId = influencerId,
-                AnnouncementId = announcementId
+                AnnouncementId = announcementId,
+                ANID = announcementId, // For the concurrency check
+                INID = influencerId, // For the concurrency check
             });
-            return rowsAffected > 0;
+            if (rowsAffected > 0)
+            {
+                transaction.Commit();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (Exception ex)
         {
