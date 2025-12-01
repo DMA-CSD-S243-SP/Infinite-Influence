@@ -54,5 +54,26 @@ namespace TestLibrary
             Assert.That(announcements.Count() > 4);
         }
 
+        [Test]
+        public void CreateAndDeleteAnnouncementTest()
+        {
+            //arrange
+            IAnnouncementDao DAO = new AnnouncementDao(connectionString);
+            Announcement newAnnouncement = new Announcement("testTitleToDelete", "testdescription", "testUrl", false, false, DateTime.Now, DateTime.Now, DateTime.Now, 10, 100, 1);
+            //act
+            int newId = DAO.CreateAnnouncement(newAnnouncement);
+            //assert
+            Assert.That(newId > 0);
+            var fetchedAnnouncement = DAO.GetAnnouncement(newId);
+            Assert.That(fetchedAnnouncement, Is.Not.Null);
+            Assert.That(fetchedAnnouncement.Title, Is.EqualTo("testTitleToDelete"));
+            //act delete
+            bool deleteResult = DAO.DeleteAnnouncement(newId);
+            //assert
+            Assert.That(deleteResult, Is.True);
+            var deletedAnnouncement = DAO.GetAnnouncement(newId);
+            Assert.That(deletedAnnouncement, Is.Null);
+        }
+
     }
 }

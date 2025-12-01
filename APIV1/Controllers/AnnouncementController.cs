@@ -102,11 +102,16 @@ namespace APIV1.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return new ContentResult() 
+            try
             {
-                Content = "Not implemented",
-                StatusCode = 501
-            }; // Not implemented
+                DefaultValues.DefaultAnnouncementDao.DeleteAnnouncement(id);
+                
+                return StatusCode(200, new { message = "Announcement was deleted." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new { error = ex.Message });
+            }
         }
     }
 }

@@ -30,8 +30,8 @@
         {
             Announcements = new ListBox();
             splitContainer1 = new SplitContainer();
-            btnEdit = new Button();
             btnDelete = new Button();
+            btnEdit = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -65,6 +65,16 @@
             splitContainer1.SplitterDistance = 390;
             splitContainer1.TabIndex = 1;
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(416, 537);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(193, 71);
+            btnDelete.TabIndex = 1;
+            btnDelete.Text = "Slet";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // btnEdit
             // 
             btnEdit.Location = new Point(416, 624);
@@ -75,15 +85,6 @@
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(416, 537);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(193, 71);
-            btnDelete.TabIndex = 1;
-            btnDelete.Text = "Slet";
-            btnDelete.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -91,7 +92,7 @@
             ClientSize = new Size(1170, 776);
             Controls.Add(splitContainer1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Infinite Influence";
             Load += Form1_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
