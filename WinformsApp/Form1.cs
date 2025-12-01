@@ -28,6 +28,10 @@ namespace WinformsApp
             EditAnnonucement();
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteAnnouncement();
+        }
 
         private void LoadAnnouncements()
         {
@@ -43,6 +47,7 @@ namespace WinformsApp
         private void UpdateUI()
         {
             btnEdit.Enabled = Announcements.SelectedIndex != -1;
+            btnDelete.Enabled = Announcements.SelectedIndex != -1;
         }
 
         private void EditAnnonucement()
@@ -52,12 +57,31 @@ namespace WinformsApp
 
             var selectedIndex = Announcements.SelectedIndex;
             var selectedAnnouncement = (ObjectModel.Announcement)Announcements.SelectedItem;
-            _apiClient.GetAnnouncement(selectedAnnouncement.Id);
-            
+
             var EditForm = new EditAnnouncementForm(selectedAnnouncement);
             EditForm.Show();
-
         }
+        private void DeleteAnnouncement()
+        {
+            if (Announcements.SelectedIndex == -1)
+                return;
+
+            var selectedAnnouncement = (ObjectModel.Announcement)Announcements.SelectedItem;
+            var confirmResult = MessageBox.Show($"Are you sure to delete this announcement: {selectedAnnouncement.Title} ?", "Confirm Delete!", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
+                {
+                    _apiClient.DeleteAnnouncement(selectedAnnouncement.Id);
+                    LoadAnnouncements();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting announcement: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
 
     }
 }

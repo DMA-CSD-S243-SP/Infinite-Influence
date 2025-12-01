@@ -51,19 +51,16 @@ public class AnnouncementApiClient
             throw new Exception("Error fetching announcements", ex);
         }
     }
-
-
-    public Announcement? GetAnnouncement(int id)
+    
+    public void DeleteAnnouncement(int id)
     {
-        /*var request = new RestRequest($"blogposts/{id}", Method.Get);
-        var response = _httpClient.Execute<Announcement>(request);
-
-        if (response == null) throw new Exception("NO response from server");
-
-        if (response.IsSuccessStatusCode) return response.Data;
-
-        if (response.StatusCode == System.Net.HttpStatusCode.NoContent) return null;
-        throw new Exception("Server reply: Unsuccessful request");*/
-        return null;
+        try 
+        {
+            var response = _httpClient.DeleteAsync($"Announcement/{id}").Result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error deleting announcement", ex);
+        }
     }
 }
