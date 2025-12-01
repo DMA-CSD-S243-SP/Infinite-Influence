@@ -32,6 +32,10 @@ namespace WinformsApp
         {
             DeleteAnnouncement();
         }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchAnnouncement();
+        }
 
         private void LoadAnnouncements()
         {
@@ -80,6 +84,21 @@ namespace WinformsApp
                     MessageBox.Show($"Error deleting announcement: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void SearchAnnouncement()
+        {
+            string searchTerm = txtSearch.Text.ToLower();
+            Announcements.Items.Clear();
+            foreach (var announcement in _apiClient.GetAllAnnouncements())
+            {
+                if (announcement.Title.ToLower().Contains(searchTerm))
+                {
+                    Announcements.Items.Add(announcement);
+                    Announcements.DisplayMember = "Title";
+                }
+            }
+            UpdateUI();
         }
 
 

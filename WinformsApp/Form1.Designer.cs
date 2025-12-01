@@ -32,6 +32,8 @@
             splitContainer1 = new SplitContainer();
             btnDelete = new Button();
             btnEdit = new Button();
+            btnSearch = new Button();
+            txtSearch = new TextBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -59,6 +61,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(txtSearch);
+            splitContainer1.Panel2.Controls.Add(btnSearch);
             splitContainer1.Panel2.Controls.Add(btnDelete);
             splitContainer1.Panel2.Controls.Add(btnEdit);
             splitContainer1.Size = new Size(1171, 779);
@@ -81,9 +85,27 @@
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(193, 71);
             btnEdit.TabIndex = 0;
-            btnEdit.Text = "Edit";
+            btnEdit.Text = "Rediger";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(715, 3);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(59, 38);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "Søg";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(551, 7);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "søg";
+            txtSearch.Size = new Size(158, 31);
+            txtSearch.TabIndex = 3;
             // 
             // Form1
             // 
@@ -96,6 +118,7 @@
             Load += Form1_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
@@ -107,5 +130,7 @@
         private SplitContainer splitContainer1;
         private Button btnDelete;
         private Button btnEdit;
+        private TextBox txtSearch;
+        private Button btnSearch;
     }
 }
