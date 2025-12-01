@@ -18,6 +18,8 @@ public interface IAnnouncementDao
     Announcement GetAnnouncement(int id);
 
     IEnumerable<Announcement> GetAllAnnouncements();
+
+    bool DeleteAnnouncement(int id);
 }
 
 

@@ -46,6 +46,21 @@ public class AnnouncementDao : BaseDao, IAnnouncementDao
         }
     }
 
+    public bool DeleteAnnouncement(int id)
+    {
+        var query = "DELETE FROM Announcement WHERE Id = @Id";
+        try
+        {
+            using var connection = createConnection();
+            var affectedRows = connection.Execute(query, new { Id = id });
+            return affectedRows > 0;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("while trying to delete an announcement from the database an error occurred ", ex);
+        }
+    }
+
     /// <summary>
     /// this method returns all of the announcements for the database
     /// </summary>
