@@ -103,22 +103,23 @@ namespace WebClientV2.Controllers
         // GET: AnnouncementController/Delete/5
         public ActionResult Delete(int id)
         {
+            HttpResponseMessage response = new APIClient().GetAsync($"Announcement/{id}").Result;
             return View();
         }
 
         // POST: AnnouncementController/Delete/5
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Announcement announcement)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                HttpResponseMessage response = new APIClient().DeleteAsync($"Announcement/{id}").Result;
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw new Exception("Error deleting announcement", ex);
             }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: announcementController/Join/5
