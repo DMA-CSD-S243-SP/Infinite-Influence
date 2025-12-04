@@ -55,7 +55,7 @@ public class InfluencerDao : BaseDao, IInfluencerDao
             "SELECT @MaxApplicants = Announcement.MaximumApplicants FROM Announcement WHERE Announcement.Id = @TargetAnnouncementId; " +
             "IF (NOT EXISTS (" +
             "SELECT InfluencerId FROM (" +
-            "SELECT TOP (@MaxApplicants) [InfluencerId] FROM [AnnouncementInfluencer] WHERE [AnnouncementId] = @TargetAnnouncementId ORDER BY AnnouncementInfluencer.ApplicationDate) AS InfluencerId WHERE InfluencerId = @ApplyingInfluencerId)) " +
+            "SELECT TOP (@MaxApplicants) [InfluencerId] FROM [AnnouncementInfluencer] WHERE [AnnouncementId] = @TargetAnnouncementId ORDER BY AnnouncementInfluencer.InsertionVersion) AS InfluencerId WHERE InfluencerId = @ApplyingInfluencerId)) " +
             "BEGIN " +
                 "DECLARE @ErrorMessage nvarchar(2048) = 'Influencer with Id %s was not accepted into Announcement with Id %s'; " +
                 "SET @ErrorMessage = FORMATMESSAGE(@ErrorMessage, CAST(@ApplyingInfluencerId AS nvarchar), CAST(@TargetAnnouncementId AS nvarchar)); " +
