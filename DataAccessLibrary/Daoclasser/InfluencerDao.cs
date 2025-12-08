@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using BCrypt;
 
 namespace DataAccessLibrary.Daoclasser;
 
@@ -17,22 +18,30 @@ public class InfluencerDao : BaseDao, IInfluencerDao
 
     public int createInfluencer(Influencer influencer)
     {
-        var query = "INSERT INTO Influencer (Username, Credentials, DisplayName, VerificationStatus, ProfileImageUrl, Location, MainPlatformUrl, Followers)" +
-            "OUTPUT INSERTED.Id VALUES (@Username, @Credentials, @DisplayName, @VerificationStatus, @ProfileImageUrl, @Location, @MainPlatformUrl, @Followers)";
+        var query = "INSERT INTO [Logins] ([Username], [Credentials], [UserRole]) Values (@Username, @Credentials, 'Influencer');" +
+            "INSERT INTO Influencer (Username, DisplayName, VerificationStatus, ProfileImageUrl, Location, MainPlatformUrl, Followers)" +
+            "OUTPUT INSERTED.Id VALUES (@Username, @DisplayName, @VerificationStatus, @ProfileImageUrl, @Location, @MainPlatformUrl, @Followers)";
         try
         {
             using var connection = createConnection();
-            return connection.QuerySingle<int>(query, new
+            connection.Open();
+            using IDbTransaction transaction = connection.BeginTransaction();
+
+
+
+            int result = connection.QuerySingle<int>(query, new
             {
-               influencer.Username,
-               influencer.Credentials,
-               influencer.DisplayName,
-               influencer.VerificationStatus,
-               influencer.ProfileImageUrl,
-               influencer.Location,
-               influencer.MainPlatformUrl,
-               influencer.Followers
-            });
+               Username = influencer.Username,
+               Credentials = influencer.Credentials.SaltHashed(),
+               DisplayName = influencer.DisplayName,
+               VerificationStatus = influencer.VerificationStatus,
+               ProfileImageUrl = influencer.ProfileImageUrl,
+               Location = influencer.Location,
+               MainPlatformUrl = influencer.MainPlatformUrl,
+               Followers = influencer.Followers
+            }, transaction);
+            transaction.Commit();
+            return result;
         }
         catch (Exception ex)
         {
