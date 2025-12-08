@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using BCrypt;
+using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessLibrary.Daoclasser;
 
@@ -27,12 +29,17 @@ public class InfluencerDao : BaseDao, IInfluencerDao
             connection.Open();
             using IDbTransaction transaction = connection.BeginTransaction();
 
-
+#pragma warning disable CS8600 // Checks for null or empty values later.
+            string encryptedCredentials = influencer.Credentials?.SaltHashed();
+            if (encryptedCredentials.IsNullOrEmpty())
+            {
+                throw new NullReferenceException("Cannot insert influencer without credentials.");
+            }
 
             int result = connection.QuerySingle<int>(query, new
             {
                Username = influencer.Username,
-               Credentials = influencer.Credentials.SaltHashed(),
+               Credentials = encryptedCredentials,
                DisplayName = influencer.DisplayName,
                VerificationStatus = influencer.VerificationStatus,
                ProfileImageUrl = influencer.ProfileImageUrl,
