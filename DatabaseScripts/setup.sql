@@ -4,31 +4,46 @@ GO
 
 Use [InfiniteInfluence]
 
+Create Table [Logins]
+(
+	[Username] varchar(32) primary key NOT NULL,
+	[Credentials] varchar (256) NOT NULL,
+	[UserRole] varchar (32) NOT NULL,
+
+	Constraint [chk_valid_user_role] Check ([UserRole] in (
+	'Company',
+	'Influencer'
+	)),
+);
+GO
+
 Create Table [Influencer]
 (
 	[Id] int identity(1,1) primary key NOT NULL,
-	[Username] varchar(32) NOT NULL,
-	[Credentials] varchar (256) NOT NULL,
+	[Username] varchar(32) unique,
 	[DisplayName] nvarchar(64) NOT NULL,
 	[VerificationStatus] bit NOT NULL,
 	[ProfileImageUrl] varchar(256) NOT NULL,
 	[Location] varchar(64) NOT NULL,
 	[MainPlatformUrl] varchar(256) NOT NULL,
 	[Followers] int NOT NULL,
+
+	Constraint [fk_Influencer_Logins] Foreign key ([Username]) references Logins([Username])
 );
 GO
 
 Create Table [Company]
 (
 	[Id] int identity(1,1) primary key NOT NULL,
-	[Username] varchar(32) NOT NULL,
-	[Credentials] varchar (256) NOT NULL,
+	[Username] varchar(32) unique,
 	[CompanyName] nvarchar(64) NOT NULL,
 	[VerificationStatus] bit NOT NULL,
 	[CompanyLogoUrl] varchar(256) NOT NULL,
 	[Location] varchar(64) NOT NULL,
 	[Email] varchar(64) NOT NULL,
 	[PhoneNumer] varchar(32) NOT NULL,
+
+	Constraint [fk_Company_Logins] Foreign key ([Username]) references Logins([Username]),
 );
 GO
 

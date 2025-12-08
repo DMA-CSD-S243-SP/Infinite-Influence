@@ -11,14 +11,17 @@ GO
 DROP FUNCTION IF EXISTS [dbo].[AvailableSpots]
 GO
 
-DROP TABLE [AnnouncementInfluencer]
+DROP TABLE IF EXISTS [AnnouncementInfluencer]
 GO
 
-DROP TABLE [Announcement]
+DROP TABLE IF EXISTS [Announcement]
 GO
 
-DROP TABLE [Company]
+DROP TABLE IF EXISTS [Company]
 GO
 
-DROP TABLE [Influencer]
+DROP TABLE IF EXISTS [Influencer]
+GO
+
+DROP TABLE IF EXISTS [Logins]
 GO
