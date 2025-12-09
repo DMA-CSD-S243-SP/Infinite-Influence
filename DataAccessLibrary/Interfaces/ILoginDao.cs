@@ -22,10 +22,12 @@ namespace DataAccessLibrary.Interfaces
         {
             public string username;
             public UserRole role;
+            public int id;
 
-            public User(string username, string rolestring)
+            public User(string username, string rolestring, int id)
             {
                 this.username = username;
+                this.id = id;
                 switch(rolestring)
                 {
                     case "Influencer":

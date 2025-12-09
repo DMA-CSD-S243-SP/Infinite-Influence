@@ -20,11 +20,17 @@ namespace DataAccessLibrary.Daoclasser
 
         public ILoginDao.User AttemptLogin(string username, string password)
         {
-            string query = "SELECT * FROM [Logins] WHERE [Username] = @Username";
+            // Query combines the id collumns of Company and Influencer into one.
+            // Depending on implementation, this could mean a company and an influencer have the same id
+            // Current implementation means roles must be enforced on posts, puts, and deletes.
+            string query = "SELECT [Logins].[Username], [Credentials], [UserRole], coalesce([Influencer].[Id], [Company].[id]) AS 'Id' " +
+                            "FROM [Logins] " +
+                            "LEFT JOIN [Influencer] ON [Influencer].[Username] = [Logins].[Username] " +
+                            "LEFT JOIN [Company] ON [Logins].[Username] = [Company].[Username]";
             try
             {
                 using var connection = createConnection();
-                var user = connection.QuerySingle<(string Username, string Credentials, string UserRole)>(query, new
+                var user = connection.QuerySingle<(string Username, string Credentials, string UserRole, int Id)>(query, new
                 {
                     Username = username
                 });
@@ -33,7 +39,7 @@ namespace DataAccessLibrary.Daoclasser
                     throw new InvalidLoginException("Passwords do not match");
                 }
 
-                return new ILoginDao.User(user.Username, user.UserRole);
+                return new ILoginDao.User(user.Username, user.UserRole, user.Id);
             }
             catch (InvalidLoginException invex)
             {
