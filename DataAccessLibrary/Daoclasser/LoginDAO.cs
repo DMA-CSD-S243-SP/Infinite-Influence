@@ -26,7 +26,7 @@ namespace DataAccessLibrary.Daoclasser
             string query = "SELECT [Logins].[Username], [Credentials], [UserRole], coalesce([Influencer].[Id], [Company].[id]) AS 'Id' " +
                             "FROM [Logins] " +
                             "LEFT JOIN [Influencer] ON [Influencer].[Username] = [Logins].[Username] " +
-                            "LEFT JOIN [Company] ON [Logins].[Username] = [Company].[Username]";
+                            "LEFT JOIN [Company] ON [Logins].[Username] = [Company].[Username] WHERE [Logins].[Username] = @Username";
             try
             {
                 using var connection = createConnection();
