@@ -23,7 +23,7 @@ namespace APIV1.Controllers
 
         [HttpPost]
         [Route("[controller]")]
-        public IActionResult Login([FromBody] LoginDTO model)
+        public IActionResult APILogin([FromBody] LoginDTO model)
         {
             try
             {
