@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using System.IdentityModel.Tokens.Jwt
+@using System.Security.Claims
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,6 +34,36 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @{
+                    string LoginStatus = "Not Logged In";
+                    try
+                    {
+                        string token = httpContextaccessor.HttpContext.Response.HttpContext.User.Claims.First(x => x.Type.Equals("token")).Value;
+                        LoginStatus = "Logged In";
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
+
+                <div class="nav-item">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</div>
+                string txt = LoginStatus;
+                <div class="nav-item nav-link text-dark" asp-area="">
+                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; @txt &nbsp; &nbsp;
+                    </div>
+
+                    if (LoginStatus == "Not Logged In")
+                    {
+                        <a class="nav-box" asp-area="" asp-controller="Login" asp-action="Login">
+                            Log in
+                        </a>
+                    } else
+                    {
+                        <a class="nav-box" asp-area="" asp-controller="Login" asp-action="Logout">
+                            Log out
+                        </a>
+                    }
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                     <!--<li class="nav-item">

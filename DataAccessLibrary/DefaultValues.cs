@@ -10,5 +10,7 @@ namespace DataAccessLibrary
         public static IAnnouncementDao DefaultAnnouncementDao { get { return new AnnouncementDao(DefaultConnectionString); } }
 
         public static IInfluencerDao DefaultInfluencerDao { get { return new InfluencerDao(DefaultConnectionString); } }
+
+        public static ILoginDao DefaultLoginDao { get { return new LoginDAO(DefaultConnectionString); } }
     }
 }
